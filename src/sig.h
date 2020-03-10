@@ -20,33 +20,16 @@
 #define __SIG_H
 
 #include <stdint.h>
-
-#if defined(__APPLE__)					// need to test an apple build ... cds 03/2018
-#  define COMMON_DIGEST_FOR_OPENSSL
-#  include <CommonCrypto/CommonDigest.h>
-#  define SHA1 CC_SHA1
-
-typedef MD5_CTX SigCTX;					// If we are on a mac, then only use MD5
-
-#  define SIG_DIGEST_LENGTH	(MD5_DIGEST_LENGTH)
-
-#  define SigInit(C)		( MD5_Init(C) )
-#  define SigUpdate(C,D,L)	( MD5_Update(C,D,L) )
-#  define SigFinal(D,C)		( MD5_Final(D,C) )
-
-#else 							// Default to MD5
-
-#  include <openssl/md5.h>
+#include <openssl/md5.h>
 
 typedef MD5_CTX SigCTX;
 
-#  define SIG_DIGEST_LENGTH	(MD5_DIGEST_LENGTH)
+#define SIG_DIGEST_LENGTH	(MD5_DIGEST_LENGTH)
 
-#  define SigInit(C)		( MD5_Init(C) )
-#  define SigUpdate(C,D,L)	( MD5_Update(C,D,L) )
-#  define SigFinal(D,C)		( MD5_Final(D,C) )
+#define SigInit(C)		( MD5_Init(C) )
+#define SigUpdate(C,D,L)	( MD5_Update(C,D,L) )
+#define SigFinal(D,C)		( MD5_Final(D,C) )
 
-#endif // Signature Implenetation
 
 #define SIG_COMPUTE_CHUNK	512			// could be bigger! - cds 03/2018
 
