@@ -43,6 +43,8 @@
 
 #ifdef MARFS
 #  include "erasure.h" /* utils for manipulation of TimingData */
+#else
+   typedef struct { } TimingData;
 #endif
 
 //synthetic data generation
@@ -74,7 +76,8 @@
 #define CHUNKBUFFER    COPYBUFFER
 
 // The amount of data to accumulate before shipping off to a copy process
-#define SHIPOFF        536870912
+//   NON-PARALLEL DESTINATIONS ONLY
+#define SHIPOFF        1073741824
 
 // The number of stat processes to default to, -1 is infinate
 #define MAXREADDIRRANKS (-1)
